@@ -48,12 +48,12 @@ namespace AdventOfCode2019
         {
             int fuel_total = 0;
 
-            int fuel_needed = Convert.ToInt32(Math.Floor(mass / 3.0)) - 2;
+            int fuel_needed = ComputeFuel(mass);
 
             while (fuel_needed > 0)
             {
                 fuel_total += fuel_needed;
-                fuel_needed = Convert.ToInt32(Math.Floor(fuel_needed / 3.0)) - 2;
+                fuel_needed = ComputeFuel(fuel_needed);
             }
 
             return fuel_total;
