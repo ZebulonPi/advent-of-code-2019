@@ -56,13 +56,13 @@ namespace AdventOfCode2019
             int pointer = 0;
 
             int opco = numbers[pointer];
-            int first_position = numbers[pointer + 1];
-            int second_position = numbers[pointer + 2];
-            int update_position = numbers[pointer + 3];
 
             while (opco != 99)
             {
-                Console.WriteLine("Opco is: " + opco);
+                int first_position = numbers[pointer + 1];
+                int second_position = numbers[pointer + 2];
+                int update_position = numbers[pointer + 3];
+
                 if (opco == 1)
                 {
                     numbers[update_position] = numbers[first_position] + numbers[second_position];
@@ -74,9 +74,6 @@ namespace AdventOfCode2019
                 pointer += 4;
 
                 opco = numbers[pointer];
-                first_position = numbers[pointer + 1];
-                second_position = numbers[pointer + 2];
-                update_position = numbers[pointer + 3];
             }
 
             return numbers[0];
@@ -102,9 +99,7 @@ namespace AdventOfCode2019
 
             int[] pure_numbers = text.Split(',').Select(Int32.Parse).ToArray();
 
-            System.Array.Resize(ref pure_numbers, 100000);
-
-            int[] numbers = pure_numbers;
+            int[] numbers = pure_numbers.Clone() as int[];
 
             int ans = 0;
 
@@ -121,13 +116,13 @@ namespace AdventOfCode2019
 
                     if (ans == 19690720)
                     {
-                        Console.WriteLine("ans" + first + " " + second);
-                        break;
+                        Console.WriteLine("Answer is " + (100 * first + second));
+                        return;
                     }
                     else
                     {
                         Console.WriteLine("Answer not found, trying next set");
-                        numbers = pure_numbers;
+                        numbers = pure_numbers.Clone() as int[];
                     }
                 }
             }
