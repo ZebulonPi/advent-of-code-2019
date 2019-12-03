@@ -138,60 +138,46 @@ namespace AdventOfCode2019
             89102
             53428";
 
-
         public static int ComputeFuel(float mass)
         {
             int fuel_needed = Convert.ToInt32(Math.Floor(mass / 3.0)) - 2;
-
             return fuel_needed;
         }
 
         public static int ComputeFuelForFuel(float mass)
         {
             int fuel_total = 0;
-
             int fuel_needed = ComputeFuel(mass);
-
             while (fuel_needed > 0)
             {
                 fuel_total += fuel_needed;
                 fuel_needed = ComputeFuel(fuel_needed);
             }
-
             return fuel_total;
         }
 
         public static void Part_1()
         {
             String[] numbers = raw_input.Split('\n');
-
             int ans = 0;
-
             foreach (var raw_number in numbers)
             {
                 int number = Int32.Parse(raw_number);
-
                 ans += ComputeFuel(number);
             }
-
             Console.WriteLine(ans);
-            }
+        }
 
         public static void Part_2()
         {
             String[] numbers = raw_input.Split('\n');
-
             int ans = 0;
-
             foreach (var raw_number in numbers)
             {
                 int number = Int32.Parse(raw_number);
-
                 int fuel = ComputeFuelForFuel(number);
-
                 ans += fuel;
             }
-
             Console.WriteLine(ans);
         }
     }
