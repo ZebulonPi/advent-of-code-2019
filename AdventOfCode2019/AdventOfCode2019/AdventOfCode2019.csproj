@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <Compile Remove="Day2.cs" />
+    <Compile Remove="EmptyClass.cs" />
   </ItemGroup>
 </Project>
