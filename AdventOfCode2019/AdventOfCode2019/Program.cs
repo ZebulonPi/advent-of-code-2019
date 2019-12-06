@@ -12,7 +12,8 @@ namespace AdventOfCode2019
             stopWatch.Start();
 
             // code here
-            Day_4.Part_2();
+            //Test_Code.Digit_parsing();
+            Day_5.Part_1();
 
             stopWatch.Stop();
             // Get the elapsed time as a TimeSpan value.
