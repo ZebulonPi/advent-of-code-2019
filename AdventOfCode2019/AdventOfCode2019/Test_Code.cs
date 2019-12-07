@@ -34,7 +34,12 @@ namespace AdventOfCode2019
             {
                 text = System.IO.File.ReadAllText(@"C:\Users\Jason\Documents\advent-of-code-2019\AdventOfCode2019\AdventOfCode2019\Day_6_test_input.txt");
             }
-            string[] wires = text.Split('\n').ToArray();
+            string[] orbits = text.Split('\n').ToArray();
+
+            foreach(String orbit in orbits)
+            {
+                Console.WriteLine(orbit);
+            }
         }
     }
 }
