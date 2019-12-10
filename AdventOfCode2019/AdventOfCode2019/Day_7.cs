@@ -1,22 +1,31 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace AdventOfCode2019
 {
-    public class Day_5
+    public class Day_7
     {
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> list, int length)
+        {
+            if (length == 1) return list.Select(t => new T[] { t });
+            return GetPermutations(list, length - 1)
+                .SelectMany(t => list.Where(o => !t.Contains(o)),
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
+        }
+
         public static int[] ReadData()
         {
             string text = "";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                text = System.IO.File.ReadAllText(@"/Users/jasongreenwood/advent-of-code-2019/AdventOfCode2019/AdventOfCode2019/Day_5_input.txt");
+                text = System.IO.File.ReadAllText(@"/Users/jasongreenwood/advent-of-code-2019/AdventOfCode2019/AdventOfCode2019/Day_7_input.txt");
             }
             else
             {
-                text = System.IO.File.ReadAllText(@"C:\Users\Jason\Documents\advent-of-code-2019\AdventOfCode2019\AdventOfCode2019\Day_5_input.txt");
+                text = System.IO.File.ReadAllText(@"C:\Users\Jason\Documents\advent-of-code-2019\AdventOfCode2019\AdventOfCode2019\Day_7_input.txt");
             }
 
             int[] numbers = text.Split(',').Select(Int32.Parse).ToArray();
@@ -35,9 +44,13 @@ namespace AdventOfCode2019
             return opcoDigits;
         }
 
-        public static void RunComputation(int[] numbers, int startingInput)
+        public static int RunComputation(int[] numbers, int[] startingInput)
         {
             int pointer = 0;
+
+            int inputPointer = 0;
+            //int outputPointer = 0;
+            int output = 0;
 
             int fullOpco = numbers[pointer];
 
@@ -103,18 +116,28 @@ namespace AdventOfCode2019
                 {
                     int first_position = numbers[pointer + 1];
 
-                    numbers[first_position] = startingInput;
+                    //Console.WriteLine($"Input {inputPointer}: {startingInput[inputPointer]}");
+
+                    numbers[first_position] = startingInput[inputPointer];
 
                     pointer += 2;
+
+                    inputPointer += 1;
                 }
 
                 else if (opco == 4) // report output
                 {
                     int first_position = numbers[pointer + 1];
 
-                    Console.WriteLine($"Output: {numbers[first_position]}");
+                    //Console.WriteLine($"Output: {numbers[first_position]}");
+
+                    output = numbers[first_position];
+
+                    //output[outputPointer] = numbers[first_position];
 
                     pointer += 2;
+
+                   //outputPointer += 1;
                 }
 
                 else if (opco == 5) // jump-if-true
@@ -295,19 +318,59 @@ namespace AdventOfCode2019
                 thridParamMode = opcoWithParams[0];
                 opco = opcoWithParams[4];
             }
+
+            return output;
         }
 
         public static void Part_1()
         {
-            int[] numbers = ReadData();
-            RunComputation(numbers, 1);
+            int highestOutput = 0;
+
+            List<int> phaseSettingSequence = new List<int>() { 0, 1, 2, 3, 4 };
+            IEnumerable<IEnumerable<int>> possibilityList = Test_Code.GetPermutations(phaseSettingSequence, 5);
+            foreach (var possibilities in possibilityList)
+            {
+                int[] first_numbers = ReadData();
+                int[] second_numbers = ReadData();
+                int[] third_numbers = ReadData();
+                int[] fourth_numbers = ReadData();
+                int[] fifth_numbers = ReadData();
+
+                List<int> asList = possibilities.ToList();
+                int firstPS = asList[0];
+                int secondPS = asList[1];
+                int thirdPS = asList[2];
+                int fourthPS = asList[3];
+                int fifthPS = asList[4];
+
+                int[] firstInput = { firstPS, 0 };
+                int firstOutput = RunComputation(first_numbers, firstInput);
+                //Console.WriteLine($"First output is {firstOutput}");
+                int[] secondInput = { secondPS, firstOutput };
+                int secondOutput = RunComputation(second_numbers, secondInput);
+                //Console.WriteLine($"Second output is {secondOutput}");
+                int[] thirdInput = { thirdPS, secondOutput };
+                int thirdOutput = RunComputation(third_numbers, thirdInput);
+                //Console.WriteLine($"Third output is {thirdOutput}");
+                int[] fourthInput = { fourthPS, thirdOutput };
+                int fourthOutput = RunComputation(fourth_numbers, fourthInput);
+                //Console.WriteLine($"Fourth output is {fourthOutput}");
+                int[] fifthInput = { fifthPS, fourthOutput };
+                int fifthOutput = RunComputation(fifth_numbers, fifthInput);
+
+                if (fifthOutput > highestOutput)
+                {
+                    Console.WriteLine($"New highest output is {fifthOutput}");
+                    highestOutput = fifthOutput;
+                }
+            }
+
+            Console.WriteLine($"Final output is {highestOutput}");
         }
 
         public static void Part_2()
         {
-            int[] numbers = ReadData();
-            RunComputation(numbers, 5);
+
         }
     }
 }
-

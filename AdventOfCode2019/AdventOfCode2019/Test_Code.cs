@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace AdventOfCode2019
 {
@@ -40,6 +41,35 @@ namespace AdventOfCode2019
             {
                 Console.WriteLine(orbit);
             }
+        }
+
+        public static void ReturnDigitsOfInt()
+        {
+            int TestInt = 123;
+            var digits = new List<int>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                digits.Add(TestInt % 10);
+                TestInt /= 10;
+            }
+
+            digits.Reverse();
+
+            foreach (int digit in digits)
+            {
+                Console.WriteLine(digit);
+            }
+
+            Console.WriteLine("Done");
+        }
+
+        public static IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> list, int length)
+        {
+            if (length == 1) return list.Select(t => new T[] { t });
+            return GetPermutations(list, length - 1)
+                .SelectMany(t => list.Where(o => !t.Contains(o)),
+                    (t1, t2) => t1.Concat(new T[] { t2 }));
         }
     }
 }

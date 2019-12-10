@@ -95,9 +95,8 @@ namespace AdventOfCode2019
 
             for (int possible = 231832; possible < 767346; possible++)
             {
-
-
-                if (DoubleDigits(possible.ToString()) && AlwaysIncreasing(possible.ToString()))
+                if (DoubleDigits(possible.ToString()) && 
+                    AlwaysIncreasing(possible.ToString()))
                 {
                     passwordCount += 1;
                 }
@@ -112,8 +111,6 @@ namespace AdventOfCode2019
 
             for (int possible = 231832; possible < 767346; possible++)
             {
-
-
                 if (DoubleButNotTriple(possible.ToString()) &&
                     AlwaysIncreasing(possible.ToString()))
                 {
@@ -122,21 +119,6 @@ namespace AdventOfCode2019
             }
 
             Console.WriteLine($"The answer is {passwordCount}");
-        }
-
-        public static void Test_Part_2()
-        {
-            int possible = 123444;
-
-            if (DoubleButNotTriple(possible.ToString()) &&
-                    AlwaysIncreasing(possible.ToString()))
-            {
-                Console.WriteLine($"{possible} works.");
-            }
-            else
-            {
-                Console.WriteLine($"{possible} DOES NOT work.");
-            }
         }
     }
 }

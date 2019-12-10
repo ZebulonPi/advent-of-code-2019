@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace AdventOfCode2019
 {
@@ -12,8 +13,8 @@ namespace AdventOfCode2019
             stopWatch.Start();
 
             // code here
-            //Test_Code.TextParsing();
-            Day_6.Part_2();
+
+            Day_7.Part_1();
 
             stopWatch.Stop();
             // Get the elapsed time as a TimeSpan value.
