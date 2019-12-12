@@ -41,9 +41,9 @@ namespace AdventOfCode2019
             int firstParamMode = opcoWithParams[2];
             int secondParamMode = opcoWithParams[1];
             int thridParamMode = opcoWithParams[0];
-            int opco = opcoWithParams[4];
+            int opco = opcoWithParams[3] * 10 + opcoWithParams[4];
 
-            while (opco != 9)
+            while (opco != 99)
             {
                 if (opco == 1 || opco == 2)
                 {
@@ -298,7 +298,7 @@ namespace AdventOfCode2019
                 firstParamMode = opcoWithParams[2];
                 secondParamMode = opcoWithParams[1];
                 thridParamMode = opcoWithParams[0];
-                opco = opcoWithParams[4];
+                opco = opcoWithParams[3] * 10 + opcoWithParams[4];
             }
 
             return output;
